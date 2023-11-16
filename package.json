@@ -1,0 +1,23 @@
+{
+  "name": "timelog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cehyman/TimeLog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cehyman/TimeLog/issues"
+  },
+  "homepage": "https://github.com/cehyman/TimeLog#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.2.0"
+  }
+}
