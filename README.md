@@ -13,7 +13,7 @@
 ## Technologies
 
 - **Backend**: Node.js with Express.js for handling requests and managing data operations.
-- **Database**: MongoDB for storing user information and time logs.
+- **Database**: MySQL for storing user information and time logs.
 - **Frontend**: React.js for building a dynamic and responsive user interface.
 - **Styling**: Bootstrap for quick and responsive design.
 - **Authentication**: JWT for secure user authentication.
