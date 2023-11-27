@@ -1,42 +1,68 @@
-// MongoDB setup
-const { MongoClient } = require('mongodb');
-
-// Connection URL
-const url = 'mongodb://localhost:27017';
-
-// Database Name
-const dbName = 'TimeLog';
-
-// Create a new MongoClient
-const client = new MongoClient(url);
-
-// Use connect method to connect to the server
-client.connect(err => {
-  if (err) {
-    console.error('Error connecting to MongoDB', err);
-    return;
-  }
-
-  console.log('Connected successfully to server');
-  const db = client.db(dbName);
-
-  // Perform operations on the database here
-
-  // Close the connection when done
-  client.close();
-});
-
-
-// Basic Express Server Setup
-
 const express = require('express');
+const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+
 const app = express();
-const port = 3000;
+app.use(express.json());
+app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+// Database connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'timelog'
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+// Connect to MySQL
+db.connect(err => {
+    if (err) throw err;
+    console.log('Connected to MySQL');
 });
+
+// ... (Routes will be here)
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
+// Register
+app.post('/register', async (req, res) => {
+  try {
+      const { username, password } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err, results) => {
+          if (err) throw err;
+          res.status(201).send('User registered successfully');
+      });
+  } catch (error) {
+      res.status(500).send('Server error');
+  }
+});
+
+//Login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
+      if (err) throw err;
+
+      if (results.length > 0) {
+          const comparison = await bcrypt.compare(password, results[0].password);
+          if (comparison) {
+              const token = jwt.sign({ id: results[0].id }, 'your_jwt_secret', { expiresIn: '1h' });
+              res.json({ token });
+          } else {
+              res.status(401).send('Incorrect password');
+          }
+      } else {
+          res.status(404).send('User not found');
+      }
+  });
+});
+
