@@ -1,116 +1,79 @@
-/* timeclock.module.css */
-
 /* Main layout container */
 .main {
     display: flex;
-    flex-direction: row; /* Side-by-side layout */
-    align-items: flex-start;
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center;
     padding: 20px;
     background-color: #f5f5f5;
     min-height: 100vh;
+    font-family: 'Arial', sans-serif; /* Use a modern font */
 }
 
-/* Left section for clock in/out and summary */
-.leftSection {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Vertically center the content within .leftSection */
-
-    margin-top: 15%;
-  }
-
-
-
-/* Right section for recent activity table */
-.rightSection {
-    width: 50%; /* Half of the screen */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 10px; /* Space between sections */
+/* Section styles */
+.section {
+    width: 80%; /* Full width with some padding */
+    margin-bottom: 2rem;
+    background: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Add shadow for depth */
+    border-radius: 10px;
+    padding: 20px;
 }
+
+/* Header styles */
 
 /* Styles for time tracking buttons */
 .timeTracker {
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: -25px;
-    width: 50%; /* Full width of the left section */
     display: flex;
-    flex-direction: row;
-    justify-content: center; /* Horizontally center the buttons */
+    justify-content: space-around; /* Evenly space out buttons */
+    padding: 1rem;
 }
 
 /* Styles for clock in/out buttons */
 .clockInButton, .clockOutButton {
-    background-color: #000; /* Green for clock in */
+    background-color: #4CAF50; /* Green for clock in */
     color: white;
-    padding: 10px 30px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    margin-right: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .clockOutButton {
-    margin-left: 100px;
-    background-color: #000; /* Red for clock out */
-    
+    background-color: #f44336; /* Red for clock out */
 }
 
 .clockInButton:hover, .clockOutButton:hover {
     opacity: 0.9;
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-
-
-/* Digital clock font style */
-@font-face {
-    font-family: 'digital-clock-font';
-    src: url('/digital-7.ttf'); /* Adjust the path as needed */
-}
-
-.hoursWorkedDisplay {
-    
-    font-family: 'digital-clock-font';
-    font-size: 16rem;
-    color: #000;
-    padding: 25px;
+/* Styles for summary section */
+.summary {
     text-align: center;
-    margin-bottom: 2rem;
-    border: 10px solid #000; /* Add a border for a clock-like appearance */
-    border-radius: 80px; /* Rounded corners for the clock */
 }
 
-/* Styles for the recent activity table */
-.recentActivityTable {
-    
-    width: 100%; /* Full width of the right section */
-    border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 16px;
-    margin-left: 15rem;
-}
-
-.recentActivityTable thead {
-    background-color: #333;
-    color: white;
-}
-
-.recentActivityTable th, .recentActivityTable td {
+.summary input[type="number"] {
+    border: 1px solid #ddd;
     padding: 10px;
-    text-align: left;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    width: 100px;
 }
 
-.recentActivityTable tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+/* Styles for the recent activity section */
+.recentActivity {
+    list-style: none;
+    padding: 0;
 }
 
-.recentActivityTable tbody tr:hover {
-    background-color: #ddd;
+.recentActivity li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.recentActivity li:last-child {
+    border-bottom: none;
 }
 
 /* Additional styles as needed */
