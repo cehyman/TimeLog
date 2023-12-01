@@ -1,37 +1,104 @@
-/* home.module.css */
+/* Main dashboard styling */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #f4f4f4; /* Light background for the dashboard */
+}
 
 .main {
-    /* existing styles */
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboardTitle {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333; /* Darker text for the title */
+}
+
+/* Widget styling */
+.widget {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.widget:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Time Tracker Widget */
+.timeTracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.clockInButton, .clockOutButton {
+  background-color: #4CAF50; /* Green for clock in */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clockOutButton {
+  background-color: #F44336; /* Red for clock out */
+}
+
+.clockInButton:hover, .clockOutButton:hover {
+  opacity: 0.9;
+}
+
+/* Summary Widget */
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Recent Activity Widget */
+.recentActivity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Table and list styling within widgets */
+.tableWidget {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableWidget th, .tableWidget td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tableWidget th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
   }
-  
+
   .timeTracker {
-    /* Styles for time tracking section */
-    margin-bottom: 20px;
+    flex-direction: column;
   }
-  
-  .clockInButton, .clockOutButton {
-    /* Styles for clock in/out buttons */
-    background-color: #4CAF50; /* Green color for clock in */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .clockOutButton {
-    background-color: #F44336; /* Red color for clock out */
-  }
-  
-  .clockInButton:hover, .clockOutButton:hover {
-    /* Slightly darker shade on hover */
-    opacity: 0.9;
-  }
-  
-  .summary, .recentActivity {
-    /* Styles for summary and recent activity sections */
-    margin-bottom: 20px;
-  }
-  
+}

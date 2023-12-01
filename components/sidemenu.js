@@ -1,15 +1,22 @@
-// components/sidebar.js
-
 import React from 'react';
+import { signOut } from 'next-auth/react';
 import styles from '../styles/sidemenu.module.css'; // Importing CSS module
 
-const SideMenu = () => {
+const SideMenu = ({ userRole }) => {
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/' }); // Redirects to the home page after sign out
+  };
+
   return (
     <nav className={styles.sidebar}>
       <ul className={styles.sidebarNav}>
-        <li className={styles.navItem}>
-          <a href="/">Dashboard</a>
-        </li>
+        {/* Conditional rendering based on user role */}
+        {userRole === 'manager' && (
+          <li className={styles.navItem}>
+            <a href="/admin">Admin</a>
+          </li>
+        )}
+        {/* Existing navigation items */}
         <li className={styles.navItem}>
           <a href="/timeclock">Time Clock</a>
         </li>
@@ -19,11 +26,15 @@ const SideMenu = () => {
         <li className={styles.navItem}>
           <a href="/settings">Settings</a>
         </li>
-        {/* Add more navigation items as needed */}
+        {/* Log out button */}
+        <li>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            Log Out
+          </button>
+        </li>
       </ul>
     </nav>
   );
-}
+};
 
 export default SideMenu;
-
