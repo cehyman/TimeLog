@@ -3,6 +3,7 @@ import db from '../../lib/db'; // Adjust the path to your db.js file
 
 export default async (req, res) => {
     if (req.method === 'POST') {
+        // Existing POST request logic
         const { clockInTime, type, userId } = req.body;
 
         try {
@@ -25,12 +26,23 @@ export default async (req, res) => {
             }
         } catch (error) {
             console.error(error);
-            // Handle specific errors like database constraints, etc.
             res.status(500).json({ message: 'An error occurred while logging time' });
         }
+    } else if (req.method === 'GET') {
+        try {
+            // Fetch the last 5 entries ordered by clock_in time in descending order
+            const results = await db.query(
+                'SELECT * FROM time_logs ORDER BY clock_in DESC'
+            );
+
+            // Directly return the results from the database
+            res.status(200).json(results);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'An error occurred while fetching time logs' });
+        }
     } else {
-        // Only POST method is allowed
-        res.setHeader('Allow', ['POST']);
+        res.setHeader('Allow', ['POST', 'GET']);
         res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     }
 };

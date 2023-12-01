@@ -5,10 +5,11 @@ const TimeClock = () => {
   const [clockedIn, setClockedIn] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [hoursWorked, setHoursWorked] = useState(0);
+  const [timeLogs, setTimeLogs] = useState([]);
 
   useEffect(() => {
     let interval = null;
-  
+
     if (clockedIn) {
       interval = setInterval(() => {
         const now = new Date();
@@ -18,25 +19,36 @@ const TimeClock = () => {
     } else {
       clearInterval(interval);
     }
-  
+
     return () => clearInterval(interval);
   }, [clockedIn, startTime]);
-  
+
+  useEffect(() => {
+    fetchTimeLogs();
+  }, []);
+
+  const fetchTimeLogs = async () => {
+    try {
+      const response = await fetch('/api/clock');
+      if (!response.ok) {
+        throw new Error(`HTTP Error: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Fetched time logs:", data); // Debugging log
+      setTimeLogs(data);
+    } catch (error) {
+      console.error('Error fetching time logs:', error);
+      window.alert('Error occurred while fetching time logs.');
+    }
+  };
 
   const handleClockIn = async () => {
     setClockedIn(true);
-
     const userId = 1;
-  
-    // Backend-friendly format (MySQL format)
     const clockInTimeForBackend = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
-  
-    // Frontend-friendly format
     const clockInTimeForFrontend = new Date().toLocaleString();
-  
-    setStartTime(clockInTimeForFrontend); // Use the frontend-friendly format for display
-  
-    // Send data to server in the backend-friendly format
+    setStartTime(clockInTimeForFrontend);
+
     await fetch('/api/clock', {
       method: 'POST',
       headers: {
@@ -44,17 +56,16 @@ const TimeClock = () => {
       },
       body: JSON.stringify({ clockInTime: clockInTimeForBackend, type: 'clock-in', userId }),
     });
-  
-    window.alert("You have clocked in."); // Notification for clocking in
+
+    window.alert("You have clocked in.");
+    fetchTimeLogs(); // Refresh time logs
   };
-  
 
   const handleClockOut = async () => {
     if (startTime) {
       const clockOutTimeForBackend = new Date().toISOString().replace('T', ' ').replace(/\..+/, '');
-      const userId = 1; 
-  
-      // Send data to server for clocking out
+      const userId = 1;
+
       await fetch('/api/clock', {
         method: 'POST',
         headers: {
@@ -62,27 +73,27 @@ const TimeClock = () => {
         },
         body: JSON.stringify({ clockInTime: clockOutTimeForBackend, type: 'clock-out', userId }),
       });
-  
-      window.alert("You have clocked out. Total hours worked: " + hoursWorked.toFixed(2)); // Notification for clocking out
+
+      window.alert("You have clocked out. Total hours worked: " + hoursWorked.toFixed(2));
     }
     setClockedIn(false);
-    setStartTime(null); // Reset start time for the next session
+    setStartTime(null);
+    fetchTimeLogs(); // Refresh time logs
   };
-  
 
   return (
     <div className={styles.main}>
       <section className={styles.timeTracker}>
-        <button 
-          className={styles.clockInButton} 
-          onClick={handleClockIn} 
+        <button
+          className={styles.clockInButton}
+          onClick={handleClockIn}
           disabled={clockedIn}
         >
           Clock In
         </button>
-        <button 
-          className={styles.clockOutButton} 
-          onClick={handleClockOut} 
+        <button
+          className={styles.clockOutButton}
+          onClick={handleClockOut}
           disabled={!clockedIn}
         >
           Clock Out
@@ -95,16 +106,28 @@ const TimeClock = () => {
           <label>Hours Worked: </label>
           <input
             type="number"
-            value={hoursWorked.toFixed(2)} // Display hours worked rounded to two decimal places
-            disabled={true} // Make it read-only
+            value={hoursWorked.toFixed(2)}
+            disabled={true}
           />
         </div>
       </section>
 
       <section className={styles.recentActivity}>
         <h2>Recent Activity</h2>
-        {/* List recent time logs */}
+        <ul>
+          {timeLogs[0] && timeLogs[0]
+            .slice(0, 5) // Get only the first five elements
+            .map(log => (
+              <li key={log.id}>
+                {new Date(log.clock_in).toLocaleString()} -
+                {log.clock_out ? new Date(log.clock_out).toLocaleString() : 'In Progress'}
+              </li>
+            ))
+          }
+        </ul>
       </section>
+
+
     </div>
   );
 };
