@@ -12,8 +12,8 @@ Instructions on setting up the project locally.
 
 ### Clone the Repository
 ```bash
-git clone [repository-url]
-cd [repository-name]
+git clone https://github.com/cehyman/TimeLog.git
+cd timelog
 ```
 
 ### Install Dependencies
