@@ -1,27 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* global.css */
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@import 'tailwindcss/components';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+/* Additional global styles */
+html {
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--tw-color-gray-100);
+  color: var(--tw-color-gray-800);
+}
+
+a {
+  color: var(--tw-color-blue-600);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--tw-color-blue-700);
+}
+
+.appLayout {
+  display: flex;
+  
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding-left: 2rem;
+  /* Add any additional styling for main content area */
+}
+
+/* Custom utility classes */
+.container {
+  @apply mx-auto max-w-screen-lg px-4;
 }
