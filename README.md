@@ -1,52 +1,36 @@
-# TimeLog
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Overview
+## Getting Started
 
-**TimeLog** is designed to be a seamless solution for companies to track their employees' working hours. Functioning as a digital time clock, it enables employees to log in and out with ease. This project focuses on creating a robust Minimum Viable Product (MVP) that includes essential features for accurate timekeeping and smoother payroll processes.
+First, run the development server:
 
-### Deliverables
-- User registration and login system.
-- Ability for employees to clock in and out.
-- Admin panel for managers to view all employee logs.
-- Report generation of work hours.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Technologies
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- **Backend**: Node.js with Express.js for handling requests and managing data operations.
-- **Database**: MySQL for storing user information and time logs.
-- **Frontend**: React.js for building a dynamic and responsive user interface.
-- **Styling**: Bootstrap for quick and responsive design.
-- **Authentication**: JWT for secure user authentication.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Milestones
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### October 30 Milestone
-**Description**: Set up the project structure and user registration system.
+## Learn More
 
-**Timeline**: Oct 10 - Oct 30
+To learn more about Next.js, take a look at the following resources:
 
-**Tasks**:
-- Set up the project repository on GitHub.
-- Design the database schema.
-- Develop the user registration system.
-- Begin the front-end development with login and registration pages.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### November 13 Milestone
-**Description**: Implement the time logging system and admin panel.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-**Timeline**: Oct 31 - Nov 13
+## Deploy on Vercel
 
-**Tasks**:
-- Create the time log feature for employees.
-- Design and implement the admin panel for viewing logs.
-- Incorporate security measures for data protection.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### November 29 Milestone
-**Description**: Finalize the reporting system and optimize the user experience.
-
-**Timeline**: Nov 14 - Nov 29
-
-**Tasks**:
-- Develop the report generation feature.
-- Optimize the user interface for better usability.
-- Perform thorough testing and bug fixes.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
