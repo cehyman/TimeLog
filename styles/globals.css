@@ -1,0 +1,41 @@
+/* global.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+@import 'tailwindcss/components';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+/* Additional global styles */
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--tw-color-gray-100);
+  color: var(--tw-color-gray-800);
+}
+
+a {
+  color: var(--tw-color-blue-600);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--tw-color-blue-700);
+}
+
+.appLayout {
+  display: flex;
+}
+
+.mainContent {
+  flex-grow: 1;
+  /* Add any additional styling for main content area */
+}
+
+/* Custom utility classes */
+.container {
+  @apply mx-auto max-w-screen-lg px-4;
+}
