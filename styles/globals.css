@@ -32,6 +32,7 @@ a:hover {
 
 .mainContent {
   flex-grow: 1;
+  padding-left: 2rem;
   /* Add any additional styling for main content area */
 }
 

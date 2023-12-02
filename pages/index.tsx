@@ -1,4 +1,4 @@
-// pages/index.tsx or a similar home page component
+// pages/index.tsx
 
 import React from 'react';
 import Head from 'next/head';
