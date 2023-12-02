@@ -11,12 +11,25 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Mock authentication logic - replace this with your actual authentication logic
-        if(username === 'admin' && password === 'password') {
-            // Redirect to home page or dashboard upon successful login
-            Router.push('/');
-        } else {
-            setError('Invalid username or password');
+        try {
+            const response = await fetch('/api/signin', { // Adjust the URL as per your API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                // Redirect to home page or dashboard upon successful login
+                Router.push('/');
+            } else {
+                const errorMsg = await response.text();
+                setError(errorMsg);
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            setError('An error occurred while logging in');
         }
     };
 
