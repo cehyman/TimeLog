@@ -1,36 +1,28 @@
 import db from '../../lib/db';
 import PDFDocument from 'pdfkit';
-import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
-import { getSession } from 'next-auth/react'; // Import getSession
+import { getSession } from 'next-auth/react';
 
 export default async (req, res) => {
-  // Get the user session
   const session = await getSession({ req });
-  const currentUserId = session?.user?.id; // Replace 'id' with the correct property based on your user object
+  const currentUserId = session?.user?.id;
 
   if (req.method === 'GET') {
     if (!currentUserId) {
       res.status(401).json({ message: "Unauthorized: User must be logged in." });
       return;
     }
+
     const { startDate, endDate } = req.query;
 
-    const reportPath = join(process.cwd(), 'lib', 'reports');
-    const reportFilename = `report_${currentUserId}_${startDate}_to_${endDate}.pdf`;
-    const reportFullPath = join(reportPath, reportFilename);
-
     try {
-      // Ensure the reports directory exists
-      await mkdir(reportPath, { recursive: true });
-
       const [report] = await db.query(
         'SELECT * FROM time_logs WHERE user_id = ? AND DATE(clock_in) BETWEEN ? AND ? ORDER BY clock_in ASC',
         [currentUserId, startDate, endDate]
       );
 
-      // Create a PDF document
       const doc = new PDFDocument();
+      doc.fontSize(12);
       let buffers = [];
       doc.on('data', buffers.push.bind(buffers));
       doc.on('end', async () => {
@@ -39,7 +31,6 @@ export default async (req, res) => {
         res.status(200).json({ message: 'Report generated successfully', filename: reportFilename });
       });
 
-      doc.fontSize(12);
 
       // Add title
       doc.text(`Time Log Report for User ID: ${currentUserId} from ${startDate} to ${endDate}`, { underline: true }).moveDown(2);
@@ -62,6 +53,9 @@ export default async (req, res) => {
       });
       
       // Finalize PDF file
+      res.setHeader('Content-Type', 'application/pdf');
+      doc.pipe(res);
+
       doc.end();
 
     } catch (error) {
