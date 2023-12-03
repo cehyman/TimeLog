@@ -80,7 +80,6 @@ const TimeClock = () => {
     }
   }, [userId, isLoadingSession]);
 
-
   const formatDuration = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -172,10 +171,6 @@ const TimeClock = () => {
     <div className={styles.main}>
       {/* Left Section */}
       <div className={styles.leftSection}>
-        <div className={styles.hoursWorkedDisplay}>
-          <span>{formatDuration(hoursWorked)}</span>
-        </div>
-  
         <section className={styles.timeTracker}>
           <button
             className={styles.clockInButton}
@@ -192,12 +187,15 @@ const TimeClock = () => {
             Clock Out
           </button>
         </section>
-  
+        <div className={styles.hoursWorkedDisplay}>
+          <span>{formatDuration(hoursWorked)}</span>
+        </div>
+
         {/* <section className={styles.summary}>
 
         </section> */}
       </div>
-  
+
       {/* Right Section */}
       <div className={styles.rightSection}>
         <section className={styles.recentActivityTable}>

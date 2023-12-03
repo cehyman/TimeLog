@@ -16,7 +16,7 @@ export default async (req, res) => {
 
     try {
         const [result] = await db.query(
-            'SELECT * FROM time_logs WHERE user_id = ? ORDER BY clock_in DESC LIMIT 10',
+            'SELECT * FROM time_logs WHERE user_id = ? ORDER BY clock_in DESC LIMIT 15',
             [userId]
         );
 
