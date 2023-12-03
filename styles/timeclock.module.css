@@ -47,4 +47,19 @@
     margin-bottom: 10px;
 }
 
+@font-face {
+    font-family: 'digital-clock-font';
+    src: url('/digital-7.ttf'); /* Adjust the path to the font file */
+  }
+  
+   
+.hoursWorkedDisplay {
+    font-family: 'digital-clock-font'; /* Choose a digital-style font */
+    font-size: 12rem; /* Adjust the font size as needed */
+    font-weight: normal; /* Use normal font weight for a digital look */
+    color: #000; /* Choose a text color */
+    padding: 10px; /* Add some padding to the element */
+    text-align: center; /* Center the text horizontally */
+    margin-bottom: 2rem; /* Add some space between the element and the next one */
+  }
 /* Additional styles as needed */

@@ -16,7 +16,7 @@ export default async (req, res) => {
             } else if (type === 'clock-out') {
                 // Update clock-out time
                 await db.query(
-                    'UPDATE time_logs SET clock_out = ? WHERE user_id = ? AND clock_out IS NULL',
+                    'UPDATE time_logs SET clock_out = ? WHERE clock_out IS NULL AND user_id = ?',
                     [clockInTime, userId]
                 );
                 res.status(200).json({ message: 'Clock-out time logged successfully' });
