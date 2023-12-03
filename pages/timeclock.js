@@ -11,6 +11,7 @@ const TimeClock = () => {
   const [startTime, setStartTime] = useState(null);
   const [hoursWorked, setHoursWorked] = useState(0);
   const [recentActivities, setRecentActivities] = useState([]);
+  const [todaysSummary, setTodaysSummary] = useState(null);
 
   // Load persisted data on page load
   useEffect(() => {
@@ -78,6 +79,7 @@ const TimeClock = () => {
       fetchRecentActivities();
     }
   }, [userId, isLoadingSession]);
+
 
   const formatDuration = (seconds) => {
     const hours = Math.floor(seconds / 3600);
@@ -168,52 +170,82 @@ const TimeClock = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.hoursWorkedDisplay}>
-        <span>{formatDuration(hoursWorked)}</span>
-      </div>
-      <section className={styles.timeTracker}>
-        <button
-          className={styles.clockInButton}
-          onClick={handleClockIn}
-          disabled={clockedIn}
-        >
-          Clock In
-        </button>
-        <button
-          className={styles.clockOutButton}
-          onClick={handleClockOut}
-          disabled={!clockedIn}
-        >
-          Clock Out
-        </button>
-      </section>
-
-      <section className={styles.summary}>
-        <h2>Today's Summary</h2>
-        <div>
-          <label>Time Worked: </label>
-          <input
-            type="text"
-            value={formatDuration(hoursWorked)}
-            disabled={true}
-          />
+      {/* Left Section */}
+      <div className={styles.leftSection}>
+        <div className={styles.hoursWorkedDisplay}>
+          <span>{formatDuration(hoursWorked)}</span>
         </div>
-      </section>
+  
+        <section className={styles.timeTracker}>
+          <button
+            className={styles.clockInButton}
+            onClick={handleClockIn}
+            disabled={clockedIn}
+          >
+            Clock In
+          </button>
+          <button
+            className={styles.clockOutButton}
+            onClick={handleClockOut}
+            disabled={!clockedIn}
+          >
+            Clock Out
+          </button>
+        </section>
+  
+        {/* <section className={styles.summary}>
 
-      <section className={styles.recentActivity}>
-        <h2>Recent Activity</h2>
-        <ul>
-          {recentActivities.map((activity, index) => (
-            <li key={index}>
-              Clock In: {new Date(activity.clock_in).toLocaleString()}, Clock
-              Out:{" "}
-              {activity.clock_out
-                ? new Date(activity.clock_out).toLocaleString()
-                : "Still clocked in"}
-            </li>
-          ))}
-        </ul>
-      </section>
+        </section> */}
+      </div>
+  
+      {/* Right Section */}
+      <div className={styles.rightSection}>
+        <section className={styles.recentActivityTable}>
+          <h2>Recent Activity</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Time Worked</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentActivities.map((activity, index) => (
+                <tr key={index}>
+                  <td>{new Date(activity.clock_in).toLocaleDateString()}</td>
+                  <td>{activity.clock_out ? "Clock Out" : "Clock In"}</td>
+                  <td>
+                    {new Date(activity.clock_in).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </td>
+                  <td>
+                    {activity.clock_out
+                      ? new Date(activity.clock_out).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : "Still clocked in"}
+                  </td>
+                  <td>
+                    {activity.clock_out
+                      ? formatDuration(
+                          (new Date(activity.clock_out) -
+                            new Date(activity.clock_in)) /
+                            1000
+                        )
+                      : "-"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </div>
     </div>
   );
 };
