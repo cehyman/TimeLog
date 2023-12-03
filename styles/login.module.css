@@ -49,3 +49,9 @@
     cursor: pointer;
     width: 100%;
 }
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
