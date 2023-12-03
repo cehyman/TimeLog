@@ -26,7 +26,7 @@ const SideMenu = () => {
           <a href="/settings">Settings</a>
         </li>
         {/* Log out button */}
-        <li className={styles.navItem}>
+        <li >
           <button onClick={handleLogout} className={styles.logoutButton}>
             Log Out
           </button>

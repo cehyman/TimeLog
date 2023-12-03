@@ -1,7 +1,7 @@
 .sidebar {
-  display: flex; /* Enable Flexbox */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: space-between; /* Space between items */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 250px;
   height: 100vh;
   background-color: #f0f4f8;
@@ -14,7 +14,6 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1; /* Let the navigation take up available space */
 }
 
 .navItem {
@@ -34,17 +33,18 @@
 /* Add this new class for the logout button */
 .logoutButton {
   display: block;
-  width: 100%; /* Full width */
-  padding: 12px 10px; /* Similar to other nav items */
-  text-align: center; /* Center the text */
-  background: none; /* No background */
-  border: none; /* No border */
-  color: inherit; /* Inherit color from parent */
-  cursor: pointer; /* Pointer cursor on hover */
-  border-radius: 4px; /* Match other nav items */
+  width: 100%;
+  padding: 12px 10px;
+  text-align: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+  align-self: flex-end; /* Position at the bottom of the sidebar */
 }
 
 .logoutButton:hover {
-  background-color: #e1e5eb; /* Softer color for hover state */
+  background-color: #e1e5eb;
   color: #1a202c;
 }
