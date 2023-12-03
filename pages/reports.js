@@ -1,36 +1,38 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/reports.module.css";
-import { Worker, Viewer } from "@react-pdf-viewer/core";
-
-// Import styles
-import "@react-pdf-viewer/core/lib/styles/index.css";
+import { useSession } from "next-auth/react"; // Import getSession'
 
 const Reports = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [reportData, setReportData] = useState(null);
+  const [reportUrl, setReportUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { data: session } = useSession(); // Get the user session
+  const [currentUserId, setCurrentUserId] = useState("");
 
   useEffect(() => {
     return () => {
-      if (reportData) {
-        window.URL.revokeObjectURL(reportData);
+      if (reportUrl) {
+        window.URL.revokeObjectURL(reportUrl);
       }
     };
-  }, [reportData]);
+  }, [reportUrl]);
 
   const fetchReportData = async () => {
+    setCurrentUserId(session?.user?.id); // Replace 'id' with the correct property based on your user object
     setLoading(true);
     setError("");
     try {
       const response = await fetch(
-        `/api/report?startDate=${startDate}&endDate=${endDate}`
+        `/api/report?userId=${currentUserId}&startDate=${startDate}&endDate=${endDate}`
       );
       if (response.ok) {
-        const blob = await response.blob();
+        const blob = new Blob([await response.blob()], {
+          type: "application/pdf",
+        });
         const url = window.URL.createObjectURL(blob);
-        setReportData(url);
+        setReportUrl(url);
       } else {
         console.error("Failed to fetch report data");
         setError("Failed to fetch report data");
@@ -64,22 +66,29 @@ const Reports = () => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </label>
+          <div className={styles.buttonContainer}>
           <button
             onClick={fetchReportData}
             disabled={!startDate || !endDate || loading}
           >
             Generate Report
           </button>
-        </div>
-        {loading && <p>Loading report...</p>}
-        {error && <p className={styles.error}>{error}</p>}
-        {reportData && (
-          <div>
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.min.js">
-              <Viewer fileUrl={reportData} />
-            </Worker>
+          {loading && <p>Loading report...</p>}
+          {error && <p className={styles.error}>{error}</p>}
+          {reportUrl && (
+            <div>
+              <a
+                href={reportUrl}
+                download={`report_${currentUserId}_${startDate}_to_${endDate}.pdf`}
+              >
+                <button className={styles.downloadButton}>
+                  Download Report
+                </button>
+              </a>
+            </div>
+          )}
           </div>
-        )}
+        </div>
       </div>
       {/* Add more sections as needed */}
     </div>
