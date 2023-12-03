@@ -15,36 +15,31 @@ const TimeClock = () => {
   // Load persisted data on page load
   useEffect(() => {
     const persistedClockedIn = localStorage.getItem("clockedIn");
-    const persistedUserId = localStorage.getItem("userId");
+    const persistedStartTime = localStorage.getItem("startTime");
+    const persistedHoursWorked = localStorage.getItem("hoursWorked");
 
-    if (persistedClockedIn && persistedUserId === userId) {
+    if (persistedClockedIn) {
       setClockedIn(persistedClockedIn === "true");
-    } else {
-      // Reset the state if the user has changed
-      setClockedIn(false);
-      setStartTime(null);
-      setHoursWorked(0);
     }
-  }, [userId]);
+
+    if (persistedStartTime) {
+      setStartTime(new Date(persistedStartTime));
+    }
+
+    if (persistedHoursWorked) {
+      setHoursWorked(parseFloat(persistedHoursWorked));
+    }
+  }, []);
 
   // Save data to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("clockedIn", clockedIn.toString());
-    localStorage.setItem("userId", userId); // Store the user ID
-
-    if (clockedIn) {
-      if (startTime) {
-        localStorage.setItem("startTime", startTime.toISOString());
-      } else {
-        localStorage.removeItem("startTime"); // Remove the start time if not clocked in
-      }
-      localStorage.setItem("hoursWorked", hoursWorked.toString());
-    } else {
-      // Remove all data if not clocked in
-      localStorage.removeItem("startTime");
-      localStorage.removeItem("hoursWorked");
+    if (startTime) {
+      localStorage.setItem("startTime", startTime.toISOString());
     }
-  }, [clockedIn, startTime, hoursWorked, userId]);
+    localStorage.setItem("hoursWorked", hoursWorked.toString());
+  }, [clockedIn, startTime, hoursWorked]);
+
   useEffect(() => {
     if (clockedIn && startTime) {
       const interval = setInterval(() => {
