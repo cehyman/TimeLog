@@ -29,9 +29,12 @@ function AppContent({ Component, pageProps }) {
   // Check if the current path is not the login page
   const showSideMenu = router.pathname !== '/login';
 
+   // Extract user role from session
+   const userRole = session?.user?.role || 'employee';
+
   return (
     <div className="appLayout">
-      {showSideMenu && <SideMenu />}
+      {showSideMenu && <SideMenu userRole={userRole} />}
       <div className="mainContent">
         <Component {...pageProps} />
       </div>
