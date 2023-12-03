@@ -13,9 +13,9 @@ const SideMenu = () => {
     <nav className={styles.sidebar}>
       <ul className={styles.sidebarNav}>
         {/* Existing navigation items */}
-        <li className={styles.navItem}>
+        {/* <li className={styles.navItem}>
           <a href="/">Dashboard</a>
-        </li>
+        </li> */}
         <li className={styles.navItem}>
           <a href="/timeclock">Time Clock</a>
         </li>
