@@ -21,13 +21,13 @@
 /* Styling for date pickers and button */
 .datePicker {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .datePicker label {
-    margin-right: 15px;
+    margin-right: 25px;
     font-weight: bold;
 }
 
@@ -79,10 +79,18 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 10px;
+    margin-left: 15px;
   }
   
   .downloadButton:hover {
     background-color: #45a049;
   }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end; /* Aligns children (buttons) to the far right */
+    align-items: center; /* Vertically aligns children in the middle, if needed */
+    width: 55%; /* Ensures the container takes the full width */
+  }
+  
   

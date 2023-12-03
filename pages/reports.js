@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/reports.module.css";
-import { useSession } from 'next-auth/react'; // Import getSession'
+import { useSession } from "next-auth/react"; // Import getSession'
 
 const Reports = () => {
   const [startDate, setStartDate] = useState("");
@@ -28,7 +28,9 @@ const Reports = () => {
         `/api/report?userId=${currentUserId}&startDate=${startDate}&endDate=${endDate}`
       );
       if (response.ok) {
-        const blob = new Blob([await response.blob()], { type: 'application/pdf' });
+        const blob = new Blob([await response.blob()], {
+          type: "application/pdf",
+        });
         const url = window.URL.createObjectURL(blob);
         setReportUrl(url);
       } else {
@@ -42,7 +44,6 @@ const Reports = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className={styles.reportsContainer}>
@@ -65,22 +66,29 @@ const Reports = () => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </label>
+          <div className={styles.buttonContainer}>
           <button
             onClick={fetchReportData}
             disabled={!startDate || !endDate || loading}
           >
             Generate Report
           </button>
-        </div>
-        {loading && <p>Loading report...</p>}
-        {error && <p className={styles.error}>{error}</p>}
-        {reportUrl && (
-          <div>
-            <a href={reportUrl} download={`report_${currentUserId}_${startDate}_to_${endDate}.pdf`}>
-              <button>Download Report</button>
-            </a>
+          {loading && <p>Loading report...</p>}
+          {error && <p className={styles.error}>{error}</p>}
+          {reportUrl && (
+            <div>
+              <a
+                href={reportUrl}
+                download={`report_${currentUserId}_${startDate}_to_${endDate}.pdf`}
+              >
+                <button className={styles.downloadButton}>
+                  Download Report
+                </button>
+              </a>
+            </div>
+          )}
           </div>
-        )}
+        </div>
       </div>
       {/* Add more sections as needed */}
     </div>
