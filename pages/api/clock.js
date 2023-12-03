@@ -3,6 +3,7 @@ import db from '../../lib/db'; // Adjust the path to your db.js file
 
 export default async (req, res) => {
     if (req.method === 'POST') {
+        // Existing POST request logic
         const { clockInTime, type, userId } = req.body;
 
         try {
@@ -16,7 +17,7 @@ export default async (req, res) => {
             } else if (type === 'clock-out') {
                 // Update clock-out time
                 await db.query(
-                    'UPDATE time_logs SET clock_out = ? WHERE clock_out IS NULL AND user_id = ?',
+                    'UPDATE time_logs SET clock_out = ? WHERE user_id = ? AND clock_out IS NULL',
                     [clockInTime, userId]
                 );
                 res.status(200).json({ message: 'Clock-out time logged successfully' });
@@ -25,43 +26,22 @@ export default async (req, res) => {
             }
         } catch (error) {
             console.error(error);
-            // Handle specific errors like database constraints, etc.
             res.status(500).json({ message: 'An error occurred while logging time' });
         }
-    }else if (req.method === 'GET') {
-        const { userId } = req.query;
-    
+    } else if (req.method === 'GET') {
         try {
-          // Retrieve all clock-in and clock-out records for the user today
-          const [results] = await db.query(
-            'SELECT clock_in, clock_out FROM time_logs WHERE user_id = ? AND DATE(clock_in) = CURDATE()',
-            [userId]
-          );
-    
-          // Retrieve all time_logs records for the user today
-          const [allTimeLogs] = await db.query(
-            'SELECT * FROM time_logs WHERE user_id = ? AND DATE(clock_in) = CURDATE()',
-            [userId]
-          );
-    
-          // Calculate the total time worked today
-          let totalTimeWorkedTodayInSeconds = 0;
-          for (const record of results) {
-            const clockInTime = new Date(record.clock_in).getTime();
-            const clockOutTime = record.clock_out
-              ? new Date(record.clock_out).getTime()
-              : new Date().getTime();
-            totalTimeWorkedTodayInSeconds += (clockOutTime - clockInTime) / 1000;
-          }
-    
-          res.status(200).json({ totalTimeWorkedTodayInSeconds, allTimeLogs });
+            // Fetch the last 5 entries ordered by clock_in time in descending order
+            const results = await db.query(
+                'SELECT * FROM time_logs ORDER BY clock_in DESC'
+            );
+
+            // Directly return the results from the database
+            res.status(200).json(results);
         } catch (error) {
-          console.error(error);
-          // Handle specific errors like database constraints, etc.
-          res.status(500).json({ message: 'An error occurred while fetching time data' });
+            console.error(error);
+            res.status(500).json({ message: 'An error occurred while fetching time logs' });
         }
-      } else {
-        // Only POST and GET methods are allowed
+    } else {
         res.setHeader('Allow', ['POST', 'GET']);
         res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     }
