@@ -11,6 +11,7 @@ const SideMenu = ({ userRole }) => {
     <nav className={styles.sidebar}>
       <ul className={styles.sidebarNav}>
         {/* Conditional rendering based on user role */}
+
         {userRole === 'manager' && (
           <li className={styles.navItem}>
             <a href="/admin">Admin</a>
