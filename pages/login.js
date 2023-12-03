@@ -1,6 +1,7 @@
 // pages/login.js
 import { useState } from "react";
 import Router from "next/router";
+import { signIn } from "next-auth/react";
 import Register from "../components/registerwindow";
 import styles from "../styles/login.module.css"; // Make sure to create this CSS module
 
@@ -12,26 +13,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("/api/signin", {
-        // Adjust the URL as per your API endpoint
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+    // Using Next-Auth's signIn method for authentication
+    const result = await signIn("credentials", {
+      redirect: false, // Prevents automatic redirection after sign in
+      username,
+      password,
+    });
 
-      if (response.ok) {
-        // Redirect to home page or dashboard upon successful login
-        Router.push("/");
-      } else {
-        const errorMsg = await response.text();
-        setError(errorMsg);
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("An error occurred while logging in");
+    if (result.error) {
+      // Update the error state if there is an error
+      setError(result.error);
+    } else {
+      // Redirect the user on successful login
+      Router.push("/");
     }
   };
 
@@ -57,14 +51,15 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
-      </form>
-      <div className={styles.register}>
+        <div className={styles.buttonContainer}>
+          <button type="submit">Login</button>
+          {/* Register button now appears below the login button */}
           <button onClick={() => setShowRegister(true)}>Register</button>
-
-          {/* Render the Register component as a modal */}
-          {showRegister && <Register onClose={() => setShowRegister(false)} />}
         </div>
+      </form>
+
+      {/* Render the Register component as a modal */}
+      {showRegister && <Register onClose={() => setShowRegister(false)} />}
     </div>
   );
 };

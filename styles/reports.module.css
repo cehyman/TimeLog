@@ -9,7 +9,6 @@
     align-items: center;
 }
 
-
 .reportSection {
     background-color: #fff;
     padding: 20px;
@@ -19,4 +18,71 @@
     margin-bottom: 20px;
 }
 
-/* Additional styles for report details */
+/* Styling for date pickers and button */
+.datePicker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.datePicker label {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.datePicker input[type="date"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.datePicker button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.datePicker button:hover {
+    background-color: #45a049;
+}
+
+.datePicker button:disabled {
+    background-color: #ccc;
+    cursor: default;
+}
+
+/* Styling for the report results */
+.reportResults {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.reportResults pre {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 15px;
+    overflow-x: auto; /* For horizontal scrolling */
+    max-height: 400px; /* Set a maximum height with vertical scroll */
+}
+
+.downloadButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  .downloadButton:hover {
+    background-color: #45a049;
+  }
+  
