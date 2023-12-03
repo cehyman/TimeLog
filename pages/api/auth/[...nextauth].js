@@ -26,7 +26,7 @@ export default NextAuth({
 
             if (match) {
               // Return user object on successful authentication
-              return { id: user.id, name: user.username };
+              return { id: user.id, name: user.username, role: user.role };
             } else {
               throw new Error("Invalid credentials");
             }
@@ -46,12 +46,14 @@ export default NextAuth({
       // this is the time of sign-in, and we can add the user ID to the token
       if (user) {
         token.userId = user.id;
+        token.role = user.role;
       }
       return token;
     },
     session: async ({ session, token }) => {
       // This callback is called whenever a session is checked. We add the userId from the token to the session
       session.user.id = token.userId;
+      session.user.role = token.role;
       return session;
     },
   },

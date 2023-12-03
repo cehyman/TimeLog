@@ -30,11 +30,11 @@ function AppContent({ Component, pageProps }) {
   const showSideMenu = router.pathname !== '/login';
 
    // Extract user role from session
-   const userRole = session?.user?.role || 'employee';
+   const userRole = session?.user?.role;
 
   return (
     <div className="appLayout">
-      {showSideMenu && <SideMenu userRole={userRole} />}
+      {showSideMenu && <SideMenu userRole={userRole}/>}
       <div className="mainContent">
         <Component {...pageProps} />
       </div>
