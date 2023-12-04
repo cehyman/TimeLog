@@ -19,8 +19,6 @@ Welcome to **TimeLog**, a comprehensive time tracking application designed to he
 - **Authentication**: Next-Auth for secure login sessions.
 
 ## Getting Started
-To get started with TimeLog:
-
 Before you begin, make sure you have the following installed on your machine:
 - Node.js
 - npm
