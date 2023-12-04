@@ -21,6 +21,13 @@ Welcome to **TimeLog**, a comprehensive time tracking application designed to he
 ## Getting Started
 To get started with TimeLog:
 
+Before you begin, make sure you have the following installed on your machine:
+- Node.js
+- npm
+- MariaDB/MySQL
+
+Also be sure to have a user setup in your mariadb/mysql when running the application for the first time. The application will prompt you to enter your database credentials when you first run it.
+
 1. Clone the repository.
 2. Run in your terminal:
     ```bash
@@ -28,4 +35,12 @@ To get started with TimeLog:
    chmod +x setup.sh
    ./setup.sh
    ```
-4. The application should now be running. To run the application again use `npm run dev`.
+3. The application should now be running. To run the application again use `npm run dev`.
+
+To login as an employee, use the following credentials:
+- **Username**: user1
+- **Password**: pass1
+
+To login as an manager, use the following credentials:
+- **Username**: chris1
+- **Password**: pass1
