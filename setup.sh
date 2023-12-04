@@ -41,7 +41,7 @@ fi
 
 # Create or update .env.local file with database credentials and JWT_SECRET
 echo "Setting up environment variables in .env.local..."
-echo "JWT_SECRET='$jwt_secret'" > .env.local
+echo "JWT_SECRET=$jwt_secret" > .env.local
 echo "MARIADB_HOST=127.0.0.1" >> .env.local
 echo "MARIADB_USER=${db_username}" >> .env.local
 echo "MARIADB_DATABASE=TimeLog" >> .env.local
