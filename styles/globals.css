@@ -1,15 +1,13 @@
-/* global.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 @import 'tailwindcss/components';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
 /* Additional global styles */
-html {
+html, body {
   font-family: 'Inter', sans-serif;
+  overflow: hidden; /* Prevents scrolling */
 }
 
 body {
@@ -28,11 +26,11 @@ a:hover {
 
 .appLayout {
   display: flex;
-  
 }
 
 .mainContent {
   flex-grow: 1;
+  width:75%;
   padding-left: 4rem;
   /* Add any additional styling for main content area */
 }

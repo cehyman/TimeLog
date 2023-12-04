@@ -190,6 +190,9 @@ const TimeClock = () => {
         <div className={styles.hoursWorkedDisplay}>
           <span>{formatDuration(hoursWorked)}</span>
         </div>
+        <div className={styles.alarmLegs}></div>
+        <div className={styles.softBrownPlank}></div>
+        <div className={styles.softBrownBox}></div>
 
         {/* <section className={styles.summary}>
 

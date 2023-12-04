@@ -24,9 +24,6 @@ const SideMenu = ({ userRole }) => {
         <li className={styles.navItem}>
           <a href="/reports">Reports</a>
         </li>
-        <li className={styles.navItem}>
-          <a href="/settings">Settings</a>
-        </li>
         {/* Log out button */}
         <li>
           <button onClick={handleLogout} className={styles.logoutButton}>

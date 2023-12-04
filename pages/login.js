@@ -25,7 +25,7 @@ const Login = () => {
       setError(result.error);
     } else {
       // Redirect the user on successful login
-      Router.push("/");
+      Router.push("/timeclock");
     }
   };
 
@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <div className={styles.loginContainer}>
       <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <h1>Login</h1>
+        <h1>TimeLog</h1>
         {error && <p className={styles.error}>{error}</p>}
         <input
           type="text"
@@ -54,7 +54,7 @@ const Login = () => {
         <div className={styles.buttonContainer}>
           <button type="submit">Login</button>
           {/* Register button now appears below the login button */}
-          <button onClick={() => setShowRegister(true)}>Register</button>
+          {/* <button onClick={() => setShowRegister(true)}>Register</button> */}
         </div>
       </form>
 

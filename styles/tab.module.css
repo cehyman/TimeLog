@@ -1,0 +1,36 @@
+/* tab.module.css */
+.tabNavigation {
+  display: flex;
+  background-color: #f5f5f5;
+  border-radius: 12px; /* Increased for a smoother look */
+  padding: 12px; /* Slightly more padding for better spacing */
+  margin-bottom: 25px; /* Increased margin for better layout */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.tab {
+  background-color: #ccc;
+  border: none;
+  border-radius: 6px; /* Smoother corners */
+  padding: 12px 24px; /* Adjusted padding for better proportion */
+  margin-right: 10px; /* Space between tabs */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+  font-weight: 500; /* Slightly bolder font */
+}
+
+.tab:hover {
+  background-color: #bbb; /* Slightly darker for hover effect */
+  transform: translateY(-2px); /* Subtle lift effect on hover */
+}
+
+.activeTab {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 6px; /* Consistent border-radius with .tab */
+}
+
+.activeTab:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Consistent hover effect with .tab */
+}

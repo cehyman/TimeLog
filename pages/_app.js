@@ -4,9 +4,9 @@ import '../styles/globals.css';
 import SideMenu from '../components/sidemenu';
 import { useRouter } from 'next/router';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={session}>
       <AppContent Component={Component} pageProps={pageProps} />
     </SessionProvider>
   );
@@ -17,20 +17,13 @@ function AppContent({ Component, pageProps }) {
   const router = useRouter();
 
   React.useEffect(() => {
-    // Check if running on client and loading is complete
-    if (typeof window !== 'undefined' && status !== 'loading') {
-      // Redirect to login if not authenticated and not already on the login page
-      if (!session && router.pathname !== '/login') {
-        router.push('/login');
-      }
+    if (typeof window !== 'undefined' && status === 'unauthenticated' && router.pathname !== '/login') {
+      router.push('/login');
     }
-  }, [session, status, router]);
+  }, [status, router]);
 
-  // Check if the current path is not the login page
   const showSideMenu = router.pathname !== '/login';
-
-   // Extract user role from session
-   const userRole = session?.user?.role;
+  const userRole = session?.user?.role;
 
   return (
     <div className="appLayout">
