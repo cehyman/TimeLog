@@ -130,7 +130,7 @@ const ManageUsers = () => {
       </div>
       <div className={styles.formSection}>
         <h3>Create User</h3>
-        {/* Apply styling classes */}
+
         <input
           type="text"
           placeholder="Username"
@@ -159,7 +159,6 @@ const ManageUsers = () => {
         </button>
 
         <h3>Update User</h3>
-        {/* Apply styling classes */}
         <select
           onChange={(e) => setSelectedUserId(e.target.value)}
           className={styles.select}

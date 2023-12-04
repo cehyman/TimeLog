@@ -10,21 +10,18 @@ const SideMenu = ({ userRole }) => {
   return (
     <nav className={styles.sidebar}>
       <ul className={styles.sidebarNav}>
-        {/* Conditional rendering based on user role */}
 
         {userRole === 'manager' && (
           <li className={styles.navItem}>
             <a href="/admin">Admin</a>
           </li>
         )}
-        {/* Existing navigation items */}
         <li className={styles.navItem}>
           <a href="/timeclock">Time Clock</a>
         </li>
         <li className={styles.navItem}>
           <a href="/reports">Reports</a>
         </li>
-        {/* Log out button */}
         <li>
           <button onClick={handleLogout} className={styles.logoutButton}>
             Log Out

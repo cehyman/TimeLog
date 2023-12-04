@@ -2,8 +2,7 @@
 import { useState } from "react";
 import Router from "next/router";
 import { signIn } from "next-auth/react";
-import Register from "../components/registerwindow";
-import styles from "../styles/login.module.css"; // Make sure to create this CSS module
+import styles from "../styles/login.module.css"; 
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -53,13 +52,11 @@ const Login = () => {
         />
         <div className={styles.buttonContainer}>
           <button type="submit">Login</button>
-          {/* Register button now appears below the login button */}
-          {/* <button onClick={() => setShowRegister(true)}>Register</button> */}
+
         </div>
       </form>
 
-      {/* Render the Register component as a modal */}
-      {showRegister && <Register onClose={() => setShowRegister(false)} />}
+
     </div>
   );
 };

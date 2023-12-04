@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/admin.module.css";
 import { useSession, signIn } from "next-auth/react";
-import ManageUsers from "../components/adminUsers"; // Import the ManageUsers component
-import Reports from "../components/adminReports"; // Import the Reports component
+import ManageUsers from "../components/adminUsers"; 
+import Reports from "../components/adminReports"; 
 import TabNavigation from "@/components/tab";
 
 const AdminPage = () => {
   const { data: session, status } = useSession();
   const [users, setUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState("manageUsers"); // Initialize with "manageUsers" tab
+  const [activeTab, setActiveTab] = useState("manageUsers"); 
 
   const [newUserData, setNewUserData] = useState({
     username: "",
@@ -64,9 +64,7 @@ const AdminPage = () => {
   };
 
   const generateReport = async () => {
-    // Validate startDate and endDate here...
 
-    // Fetch the report data from the API
     const response = await fetch(`/api/report?startDate=${startDate}&endDate=${endDate}&userId=${userId}`, {
       method: "GET",
       headers: {
@@ -87,10 +85,8 @@ const AdminPage = () => {
       <h1 className="dashboard-header">Admin Dashboard</h1>
       <p>Welcome to the Admin Dashboard. Here you can manage users and generate reports.</p>
 
-      {/* Render the tab navigation */}
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 
-      {/* Render content based on the active tab */}
       {activeTab === "manageUsers" && <ManageUsers />}
       {activeTab === "reports" && <Reports />}
     </div>

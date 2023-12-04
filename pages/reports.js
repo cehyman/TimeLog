@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/reports.module.css";
-import { useSession } from "next-auth/react"; // Import getSession'
+import { useSession } from "next-auth/react"; 
 
 const Reports = () => {
   const [startDate, setStartDate] = useState("");
@@ -20,7 +20,7 @@ const Reports = () => {
   }, [reportUrl]);
 
   const fetchReportData = async () => {
-    setCurrentUserId(session?.user?.id); // Replace 'id' with the correct property based on your user object
+    setCurrentUserId(session?.user?.id); 
     setLoading(true);
     setError("");
     try {
@@ -90,7 +90,6 @@ const Reports = () => {
           </div>
         </div>
       </div>
-      {/* Add more sections as needed */}
     </div>
   );
 };
